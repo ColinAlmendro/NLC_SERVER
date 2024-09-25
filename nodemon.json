@@ -1,0 +1,8 @@
+{
+	"env": {
+		"DB_USER": "NLC_admin",
+		"DB_PASSWORD": "CappucinoIsTheBest",
+		"DB_NAME": "NLC",
+		"JWT_KEY": "supersecret_dont_share"
+	}
+}
