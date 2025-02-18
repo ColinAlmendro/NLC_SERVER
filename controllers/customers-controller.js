@@ -9,7 +9,7 @@ const Customer = require("../models/customer");
 const getCustomerList = async (req, res, next) => {
 	let customerList;
 	try {
-		customerList = await Customer.find();
+		customerList = await Customer.find().sort({ surname: 1, name: 1 });
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching customers failed, please try again later.",
@@ -61,7 +61,6 @@ const addCustomer = async (req, res, next) => {
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
-	
 	const newCustomer = new Customer({
 		name: req.body.name,
 		surname: req.body.name,
@@ -69,11 +68,11 @@ const addCustomer = async (req, res, next) => {
 		cell: req.body.cell,
 		email: req.body.email,
 		address1: req.body.address1,
-		address2: req.body.address2,
-		// location: req.body.location,
+		area: req.body.area,
+
 		note: req.body.note,
 	});
-	
+
 	try {
 		const sess = await mongoose.startSession();
 		sess.startTransaction();
@@ -93,13 +92,13 @@ const addCustomer = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editCustomer = async (req, res, next) => {
-	console.log("Body:",req.params.customerId, req.body);
+	console.log("Body:", req.params.customerId, req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
-	
+
 	const customerId = req.params.customerId;
 
 	let customer;
@@ -113,15 +112,15 @@ const editCustomer = async (req, res, next) => {
 		return next(error);
 	}
 
-	customer.name= req.body.name;
+	customer.name = req.body.name;
 	customer.surname = req.body.surname;
 	customer.dob = req.body.dob;
-	customer.cell= req.body.cell;
-	customer.email= req.body.email;
-	customer.address1= req.body.address1;
-	customer.address2=req.body.address2;
-	// customer.location= req.body.location;
-	customer.note= req.body.note;
+	customer.cell = req.body.cell;
+	customer.email = req.body.email;
+	customer.address1 = req.body.address1;
+	customer.area = req.body.area;
+
+	customer.note = req.body.note;
 
 	try {
 		await customer.save();

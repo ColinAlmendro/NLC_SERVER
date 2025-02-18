@@ -22,6 +22,10 @@ router.post(
 			.not()
 			.isEmpty()
 			.withMessage("Add category"),
+		check("freezable")
+			.not()
+			.isEmpty()
+			.withMessage("Add freezable"),
 		check("name")
 			.not()
 			.isEmpty()
@@ -67,6 +71,10 @@ router.patch(
 			.not()
 			.isEmpty()
 			.withMessage("Add category"),
+		check("freezable")
+			.not()
+			.isEmpty()
+			.withMessage("Add freezable"),
 		check("name")
 			.not()
 			.isEmpty()
@@ -90,10 +98,10 @@ router.patch(
 		check("feeds")
 			.isNumeric()
 			.withMessage("Add feeds amount"),
-		check("url")
-			.not()
-			.isEmpty()
-			.withMessage("Must be a valid URL"),
+		// check("url")
+		// 	.not()
+		// 	.isEmpty()
+		// 	.withMessage("Must be a valid URL"),
 		check("cost")
 			.isDecimal()
 			.withMessage("Invalid cost"),
@@ -136,10 +144,10 @@ router.post(
 		check("feeds")
 			.isNumeric()
 			.withMessage("Add feeds amount"),
-		check("url")
-			.not()
-			.isEmpty()
-			.withMessage("Must be a valid URL"),
+		// check("url")
+		// 	.not()
+		// 	.isEmpty()
+		// 	.withMessage("Must be a valid URL"),
 		check("cost")
 			.isDecimal()
 			.withMessage("Invalid cost"),

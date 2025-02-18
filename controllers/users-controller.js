@@ -9,7 +9,8 @@ const User = require("../models/user");
 const getUsers = async (req, res, next) => {
 	let users;
 	try {
-		users = await User.find({}, "-password");
+		 users = await User.find({}, "-password");
+		//users = await User.find();
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching users failed, please try again later.",
@@ -21,6 +22,7 @@ const getUsers = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
+	console.log("user req body",req.body)
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return next(
@@ -62,14 +64,15 @@ const signup = async (req, res, next) => {
 
 	try {
 		// Upload image to cloudinary
-		console.log("req.file.path..", req.file.path);
-		const result = await cloudinary.uploader.upload(req.file.path);
+		//console.log("req.file.path..", req.file.path);
+		//const result = await cloudinary.uploader.upload(req.file.path);
 		const createdUser = new User({
 			name: req.body.name,
 			email: req.body.email,
-			image: result.secure_url,
-			cloudinary_id: result.public_id,
+			// image: result.secure_url,
+			// cloudinary_id: result.public_id,
 			password: hashedPassword,
+			admin: false,
 		});
 		await createdUser.save();
 		// res.json(createdUser);
@@ -181,6 +184,7 @@ const login = async (req, res, next) => {
 		userId: existingUser.id,
 		email: existingUser.email,
 		token: token,
+		admin:existingUser.admin,
 	});
 };
 

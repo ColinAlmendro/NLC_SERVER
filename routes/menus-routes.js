@@ -19,36 +19,39 @@ router.post(
 		check("date")
 			.not()
 			.isEmpty(),
-		check("promotion")
-			.not()
-			.isEmpty(),
-		check("monday")
-			.not()
-			.isEmpty(),
-		check("tuesday")
-			.not()
-			.isEmpty(),
-		check("wednesday")
-			.not()
-			.isEmpty(),
-		check("thursday")
-			.not()
-			.isEmpty(),
-		check("friday")
-			.not()
-			.isEmpty(),
-		check("vegies")
-			.not()
-			.isEmpty(),
-		check("salads")
-			.not()
-			.isEmpty(),
-		check("soups")
-			.not()
-			.isEmpty(),
-		check("sides")
-			.not()
-			.isEmpty(),
+		// check("promotion")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("monday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("tuesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("wednesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("thursday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("friday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("frozen")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("vegies")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("salads")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("soups")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("sides")
+		// 	.not()
+		// 	.isEmpty(),
 	],
 	addMenu
 );
@@ -62,33 +65,36 @@ router.patch(
 		check("promotion")
 			.not()
 			.isEmpty(),
-		check("monday")
-			.not()
-			.isEmpty(),
-		check("tuesday")
-			.not()
-			.isEmpty(),
-		check("wednesday")
-			.not()
-			.isEmpty(),
-		check("thursday")
-			.not()
-			.isEmpty(),
-		check("friday")
-			.not()
-			.isEmpty(),
-		check("vegies")
-			.not()
-			.isEmpty(),
-		check("salads")
-			.not()
-			.isEmpty(),
-		check("soups")
-			.not()
-			.isEmpty(),
-		check("sides")
-			.not()
-			.isEmpty(),
+		// check("monday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("tuesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("wednesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("thursday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("friday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("frozen")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("vegies")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("salads")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("soups")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("sides")
+		// 	.not()
+		// 	.isEmpty(),
 	],
 	editMenu
 );

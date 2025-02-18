@@ -11,9 +11,10 @@ const getRecipeList = async (req, res, next) => {
 	let recipeList;
 	try {
 		recipeList = await Recipe.find()
+			.sort({ category: 1, name: 1 })
 			.populate({
 				path: "ingredients.ingredient",
-				select: "name",
+				select: ["category", "name", "description", "price"],
 				model: "Ingredient",
 			})
 			.exec();
@@ -73,6 +74,7 @@ const addRecipe = async (req, res, next) => {
 
 		const newRecipe = new Recipe({
 			category: req.body.category,
+			freezable: req.body.freezable,
 			name: req.body.name,
 			description: req.body.description,
 			// ingredients: JSON.parse(req.body.ingredients),
@@ -84,6 +86,7 @@ const addRecipe = async (req, res, next) => {
 			premium: req.body.premium,
 			cost: req.body.cost,
 			price: req.body.price,
+			orders: 0,
 		});
 
 		// try {
@@ -114,6 +117,7 @@ const editRecipe = async (req, res, next) => {
 	}
 	const {
 		category,
+		freezable,
 		name,
 		description,
 		ingredients,
@@ -144,6 +148,7 @@ const editRecipe = async (req, res, next) => {
 	// 	const result = await cloudinary.uploader.upload(req.file.path);
 
 	recipe.category = category;
+	recipe.freezable = freezable;
 	recipe.name = name;
 	recipe.description = description;
 	recipe.ingredients = ingredients;

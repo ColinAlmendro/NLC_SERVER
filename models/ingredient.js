@@ -5,8 +5,8 @@ const ingredientSchema = new Schema({
 	category: { type: String, required: true },
 	name: { type: String, unique: true, required: true },
 	description: { type: String, required: false },
-	unit: { type: String, default: "gram" },
-	volume: { type: Number, required: true },
+	// unit: { type: String, default: "gram" },
+	// volume: { type: Number, required: true },
 	price: { type: Number, "multipleOf" : 0.01, required: true },
 });
 

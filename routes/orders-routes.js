@@ -25,21 +25,21 @@ router.post(
 		check("menu")
 			.not()
 			.isEmpty(),
-		check("monday")
-			.not()
-			.isEmpty(),
-		check("tuesday")
-			.not()
-			.isEmpty(),
-		check("wednesday")
-			.not()
-			.isEmpty(),
-		check("thursday")
-			.not()
-			.isEmpty(),
-		check("friday")
-			.not()
-			.isEmpty(),
+		// check("monday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("tuesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("wednesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("thursday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("friday")
+		// 	.not()
+		// 	.isEmpty(),
 	],
 	addOrder
 );
@@ -56,21 +56,21 @@ router.patch(
 		check("menu")
 			.not()
 			.isEmpty(),
-		check("monday")
-			.not()
-			.isEmpty(),
-		check("tuesday")
-			.not()
-			.isEmpty(),
-		check("wednesday")
-			.not()
-			.isEmpty(),
-		check("thursday")
-			.not()
-			.isEmpty(),
-		check("friday")
-			.not()
-			.isEmpty(),
+		// check("monday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("tuesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("wednesday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("thursday")
+		// 	.not()
+		// 	.isEmpty(),
+		// check("friday")
+		// 	.not()
+		// 	.isEmpty(),
 	],
 	editOrder
 );

@@ -9,7 +9,12 @@ const Promotion = require("../models/promotion");
 const getPromotionList = async (req, res, next) => {
 	let promotionList;
 	try {
-		promotionList = await Promotion.find();
+		promotionList = await Promotion.find().populate({
+			path: "items.recipe",
+			select: ["category", "name", "premium"],
+			model: "Recipe",
+		})
+		.exec();
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching promotions failed, please try again later.",

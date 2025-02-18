@@ -7,12 +7,14 @@ const ingredientSchema = new Schema({
 		ref: "Ingredients",
 		required: true,
 	},
-	unit: { type: String, required: true },
+    amount: { type: String, required: true },
 	qty: { type: Number, multipleOf: 0.01, required: true },
+	cost: { type: Number, multipleOf: 0.01, required: true },
 });
 
 const recipeSchema = new Schema({
 	category: { type: String, required: true },
+	freezable: { type: String, required: true },
 	name: { type: String, required: true },
 	description: { type: String, required: true },
 	ingredients: [ingredientSchema],
@@ -23,6 +25,7 @@ const recipeSchema = new Schema({
 	premium: { type: Number, required: true },
 	cost: { type: Number, multipleOf: 0.01, required: true },
 	price: { type: Number, multipleOf: 0.01, required: true },
+	orders: { type: Number, required: false },
 });
 
 module.exports = mongoose.model("Recipe", recipeSchema);

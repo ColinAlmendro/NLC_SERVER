@@ -54,6 +54,11 @@ const getMenuList = async (req, res, next) => {
 				select: ["category", "name", "premium"],
 				model: "Recipe",
 			})
+			.populate({
+				path: "frozen.main",
+				select: ["category", "name", "premium"],
+				model: "Recipe",
+			})
 			// .populate({
 			// 	path: "friday.side",
 			// 	select: ["category", "name"],
@@ -79,6 +84,12 @@ const getMenuList = async (req, res, next) => {
 				select: ["category", "name", "premium"],
 				model: "Recipe",
 			})
+			// .populate({
+			// 	path: "promotion",
+			// 	// select: ["category", "name", "premium"],
+			// 	model: "Promotion",
+			// })
+
 			.exec();
 	} catch (err) {
 		const error = new HttpError(
@@ -122,7 +133,7 @@ const getMenuById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addMenu = async (req, res, next) => {
-	//	console.log("req body** ", req.params.menuId, req.body);
+		console.log("menu req body** ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		throw new HttpError(
@@ -140,6 +151,7 @@ const addMenu = async (req, res, next) => {
 		wednesday: req.body.wednesday,
 		thursday: req.body.thursday,
 		friday: req.body.friday,
+		frozen: req.body.frozen,
 		vegies: req.body.vegies,
 		salads: req.body.salads,
 		soups: req.body.soups,
@@ -191,6 +203,7 @@ const editMenu = async (req, res, next) => {
 	menu.wednesday = req.body.wednesday;
 	menu.thursday = req.body.thursday;
 	menu.friday = req.body.friday;
+	menu.frozen = req.body.frozen;
 	menu.vegies = req.body.vegies;
 	menu.salads = req.body.salads;
 	menu.soups = req.body.soups;

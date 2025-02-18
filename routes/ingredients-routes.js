@@ -29,13 +29,6 @@ router.post(
 			.not()
 			.isEmpty()
 			.withMessage("Add description"),
-		check("unit")
-			.not()
-			.isEmpty()
-			.withMessage("Add unit"),
-		check("volume")
-			.isNumeric()
-			.withMessage("Add volume"),
 		check("price")
 			.isDecimal()
 			.withMessage("Must be decimal"),
@@ -58,13 +51,13 @@ router.patch(
 			.not()
 			.isEmpty()
 			.withMessage("Add description"),
-		check("unit")
-			.not()
-			.isEmpty()
-			.withMessage("Add unit"),
-		check("volume")
-			.isNumeric()
-			.withMessage("Add volume"),
+		// check("unit")
+		// 	.not()
+		// 	.isEmpty()
+		// 	.withMessage("Add unit"),
+		// check("volume")
+		// 	.isNumeric()
+		// 	.withMessage("Add volume"),
 		check("price")
 			.isDecimal()
 			.withMessage("Must be decimal"),

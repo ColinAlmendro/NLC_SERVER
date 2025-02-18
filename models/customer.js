@@ -10,8 +10,8 @@ const customerSchema = new Schema({
 	cell: { type: String, required: true },
 	email: { type: String, required: false },
 	address1: { type: String, required: true },
-	address2: { type: String, required: true },
-	// location: { type: String, required: false },
+	area: { type: String, required: true },
+	
 	note: { type: String, required: false },
 });
 

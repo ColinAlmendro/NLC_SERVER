@@ -51,6 +51,11 @@ const editAppSettings = async (req, res, next) => {
 		about_intro,
 		about_text,
 		about_image,
+		area_list,
+		recipe_type_list,
+		ingredient_category_list,
+		price_list,
+		aa_rate,
 	} = req.body;
 
 	 const appSettingId = req.params.appSettingId;
@@ -89,6 +94,11 @@ const editAppSettings = async (req, res, next) => {
 	appSettings.about_intro = about_intro;
 	appSettings.about_text = about_text;
 	appSettings.about_image = about_image;
+	appSettings.area_list = area_list;
+    appSettings.recipe_type_list = recipe_type_list;
+    appSettings.ingredient_category_list = ingredient_category_list;
+	appSettings.price_list = price_list;
+	appSettings.aa_rate = aa_rate;
 
 	try {
 		await appSettings.save();

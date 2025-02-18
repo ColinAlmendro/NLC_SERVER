@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Order = require("../models/order");
+const Recipe = require("../models/recipe");
 
 ///////////////////////////////////////////////////////////////////
 const getOrderList = async (req, res, next) => {
@@ -16,7 +17,7 @@ const getOrderList = async (req, res, next) => {
 			})
 			.populate({
 				path: "menu",
-				  select: "date",
+				select: "date",
 				model: "Menu",
 			})
 			.exec();
@@ -62,7 +63,7 @@ const getOrderById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addOrder = async (req, res, next) => {
-	//	console.log("req body** ", req.params.orderId, req.body);
+	console.log("req body** ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		throw new HttpError(
@@ -70,6 +71,65 @@ const addOrder = async (req, res, next) => {
 			422
 		);
 	}
+	// update recipe count !!!!!!!!!!!!!!!!!!!!!
+	let recipeCount;
+	req.body.monday &&
+		req.body.monday.map(async (item) => {
+			//console.log("monday item", item)
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
+	req.body.tuesday &&
+		req.body.tuesday.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
+	req.body.wednesday &&
+		req.body.wednesday.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
+	req.body.thursday &&
+		req.body.thursday.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
+	req.body.friday &&
+		req.body.friday.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
+		req.body.frozen &&
+			req.body.friday.map(async (item) => {
+				recipeCount = await Recipe.updateOne(
+					{ _id: item.item },
+					{ $inc: { orders: item.count } },
+					{ upsert: true }
+				);
+			});
+	req.body.promotions &&
+		req.body.promotions.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
 
 	const newOrder = new Order({
 		date: req.body.date,
@@ -80,14 +140,20 @@ const addOrder = async (req, res, next) => {
 		wednesday: req.body.wednesday,
 		thursday: req.body.thursday,
 		friday: req.body.friday,
+		frozen: req.body.frozen,
+		promotion: req.body.promotion,
 		item_count: req.body.item_count,
+		total_cost: req.body.total_cost,
+		total_delivery: req.body.total_delivery,
 		total_price: req.body.total_price,
 		note: req.body.note,
 	});
 	try {
 		const sess = await mongoose.startSession();
 		sess.startTransaction();
-		await newOrder.save({ session: sess });
+		await newOrder.save({
+			session: sess,
+		});
 		await sess.commitTransaction();
 	} catch (err) {
 		const error = new HttpError(
@@ -131,7 +197,11 @@ const editOrder = async (req, res, next) => {
 	order.wednesday = req.body.wednesday;
 	order.thursday = req.body.thursday;
 	order.friday = req.body.friday;
+	order.frozen = req.body.frozen;
+	order.promotion = req.body.promotion;
 	order.item_count = req.body.item_count;
+	order.total_cost = req.body.total_cost;
+	order.total_delivery = req.body.total_delivery;
 	order.total_price = req.body.total_price;
 	order.note = req.body.note;
 

@@ -6,11 +6,16 @@ const promotionSchema = new Schema({
 	items: [
 		{
 			image: { type: String, required: false },
+			recipe: {
+				type: Schema.Types.ObjectId,
+				ref: "Recipes",
+				required: true,
+			},
 			name: { type: String, required: true },
 			description: { type: String, required: true },
 			volume: { type: String, required: true },
-			price: { type: String, required: true },
-			// price: mongoose.Decimal128,
+			count: { type: Number, required: true },
+			price: { type: Number, multipleOf: 0.01, required: true },
 		},
 	],
 });

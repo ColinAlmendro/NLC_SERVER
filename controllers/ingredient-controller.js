@@ -8,7 +8,7 @@ const Recipe = require("../models/recipe");
 const getIngredientList = async (req, res, next) => {
 	let ingredientList;
 	try {
-		ingredientList = await Ingredient.find();
+		ingredientList = await Ingredient.find().sort({category:1});
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching ingredients failed, please try again later.",
@@ -60,14 +60,12 @@ const addIngredient = async (req, res, next) => {
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
-	const { category, name, description, unit, volume, price } = req.body;
+	const { category, name, description, price } = req.body;
 	
 	const newIngredient = new Ingredient({
 		category,
 		name,
 		description,
-		unit,
-		volume,
 		price,
 	});
 	try {
@@ -88,6 +86,7 @@ const addIngredient = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editIngredient = async (req, res, next) => {
+	console.log("ing req",req);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
@@ -110,8 +109,6 @@ const editIngredient = async (req, res, next) => {
 	ingredient.category = category;
 	ingredient.name = name;
 	ingredient.description = description;
-	ingredient.unit = unit;
-	ingredient.volume = volume;
 	ingredient.price = price;
 
 	try {
