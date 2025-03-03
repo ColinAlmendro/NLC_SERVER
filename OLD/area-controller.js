@@ -3,7 +3,7 @@ const fs = require("fs");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
-const Area = require("../models/area");
+const Area = require("./area");
 
 ///////////////////////////////////////////////////////////////////
 const getAreaList = async (req, res, next) => {
@@ -21,9 +21,7 @@ const getAreaList = async (req, res, next) => {
 		return next(new HttpError("Could not find any areas.", 404));
 	}
 	res.json({
-		areas: areaList.map((area) =>
-			area.toObject({ getters: true })
-		),
+		areas: areaList.map((area) => area.toObject({ getters: true })),
 	});
 };
 
@@ -61,13 +59,11 @@ const addArea = async (req, res, next) => {
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
-	
 	const newArea = new Area({
 		area: req.body.area,
 		delivery_rate: req.body.delivery_rate,
-	
 	});
-	
+
 	try {
 		const sess = await mongoose.startSession();
 		sess.startTransaction();
@@ -87,13 +83,13 @@ const addArea = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editArea = async (req, res, next) => {
-	console.log("Body:",req.params.areaId, req.body);
+	console.log("Body:", req.params.areaId, req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
-	
+
 	const areaId = req.params.areaId;
 
 	let area;
@@ -107,7 +103,7 @@ const editArea = async (req, res, next) => {
 		return next(error);
 	}
 
-	area.area= req.body.area;
+	area.area = req.body.area;
 	area.delivery_rate = req.body.delivery_rate;
 
 	try {

@@ -13,9 +13,9 @@ const recipesRoutes = require("./routes/recipes-routes");
 const promotionsRoutes = require("./routes/promotions-routes");
 const customersRoutes = require("./routes/customers-routes");
 const ordersRoutes = require("./routes/orders-routes");
-const pricelistRoutes = require("./routes/pricelist-routes");
+// const pricelistRoutes = require("./routes/pricelist-routes");
 const menusRoutes = require("./routes/menus-routes");
-const areasRoutes = require("./routes/areas-routes");
+const areasRoutes = require("./OLD/areas-routes");
 
 const httpError = require("./models/http-error");
 
@@ -57,7 +57,7 @@ app.use("/api/ingredients", ingredientsRoutes);
 app.use("/api/recipes", recipesRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/orders", ordersRoutes);
-app.use("/api/pricelist", pricelistRoutes);
+// app.use("/api/pricelist", pricelistRoutes);
 app.use("/api/menus", menusRoutes);
 app.use("/api/promotions", promotionsRoutes);
 app.use("/api/areas", areasRoutes);
