@@ -20,6 +20,7 @@ const getOrderList = async (req, res, next) => {
 				select: "date",
 				model: "Menu",
 			})
+			.sort({ date: -1, name: 1 })
 			.exec();
 	} catch (err) {
 		const error = new HttpError(
@@ -114,14 +115,14 @@ const addOrder = async (req, res, next) => {
 				{ upsert: true }
 			);
 		});
-		req.body.frozen &&
-			req.body.friday.map(async (item) => {
-				recipeCount = await Recipe.updateOne(
-					{ _id: item.item },
-					{ $inc: { orders: item.count } },
-					{ upsert: true }
-				);
-			});
+	req.body.frozen &&
+		req.body.friday.map(async (item) => {
+			recipeCount = await Recipe.updateOne(
+				{ _id: item.item },
+				{ $inc: { orders: item.count } },
+				{ upsert: true }
+			);
+		});
 	req.body.promotions &&
 		req.body.promotions.map(async (item) => {
 			recipeCount = await Recipe.updateOne(
@@ -228,9 +229,9 @@ const deleteOrder = async (req, res, next) => {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Order to be deleted:", deletedItem);
+		//	console.log("Order to be deleted:", deletedItem);
 		} else {
-			console.log("No order found with that id.");
+		//	console.log("No order found with that id.");
 			const error = new HttpError("No order found with that id.", 404);
 			return next(error);
 		}

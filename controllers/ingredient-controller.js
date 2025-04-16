@@ -8,7 +8,7 @@ const Recipe = require("../models/recipe");
 const getIngredientList = async (req, res, next) => {
 	let ingredientList;
 	try {
-		ingredientList = await Ingredient.find().sort({category:1});
+		ingredientList = await Ingredient.find().sort({ category: 1, name: 1 });
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching ingredients failed, please try again later.",
@@ -53,15 +53,15 @@ const getIngredientById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addIngredient = async (req, res, next) => {
-	console.log("Node req body* ", req.body);
+	//console.log("Node req body* ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log("validation error: " + errors.message);
+		//console.log("validation error: " + errors.message);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
 	const { category, name, description, price } = req.body;
-	
+
 	const newIngredient = new Ingredient({
 		category,
 		name,
@@ -86,10 +86,10 @@ const addIngredient = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editIngredient = async (req, res, next) => {
-	console.log("ing req",req);
+	//console.log("ing req", req);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
+		//console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 	const { category, name, description, unit, volume, price } = req.body;
@@ -126,7 +126,7 @@ const editIngredient = async (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////
 const deleteIngredient = async (req, res, next) => {
 	const ingredientId = req.params.ingredientId;
-	console.log("ID:", ingredientId);
+	//console.log("ID:", ingredientId);
 
 	// Is ingredient still used in a recipe?
 	try {
@@ -152,9 +152,9 @@ const deleteIngredient = async (req, res, next) => {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Ingredient to be deleted:", deletedItem);
+			//console.log("Ingredient to be deleted:", deletedItem);
 		} else {
-			console.log("No ingredient found with that id.");
+			//console.log("No ingredient found with that id.");
 			const error = new HttpError("No ingredient found with that id.", 404);
 			return next(error);
 		}

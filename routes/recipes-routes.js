@@ -114,52 +114,52 @@ router.patch(
 	],
 	editRecipe
 );
-router.post(
-	"/new/ingredient/",
-	[
-		check("category")
-			.not()
-			.isEmpty()
-			.withMessage("Add category"),
-		check("name")
-			.not()
-			.isEmpty()
-			.withMessage("Add recipe name"),
-		check("description")
-			.not()
-			.isEmpty()
-			.withMessage("Add recipe description"),
-		check("ingredients")
-			.not()
-			.isEmpty()
-			.withMessage("Add recipe ingredients"),
-		check("instructions")
-			.not()
-			.isEmpty()
-			.withMessage("Add recipe instructions"),
-		check("image")
-			.not()
-			.isEmpty()
-			.withMessage("Must be a valid image"),
-		check("feeds")
-			.isNumeric()
-			.withMessage("Add feeds amount"),
-		// check("url")
-		// 	.not()
-		// 	.isEmpty()
-		// 	.withMessage("Must be a valid URL"),
-		check("cost")
-			.isDecimal()
-			.withMessage("Invalid cost"),
-		check("premium")
-			.isNumeric()
-			.withMessage("Add premium"),
-		check("price")
-			.isDecimal()
-			.withMessage("Invalid price"),
-	]
-	// addRecipeIngredient
-);
+// router.post(
+// 	"/new/ingredient/",
+// 	[
+// 		check("category")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Add category"),
+// 		check("name")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Add recipe name"),
+// 		check("description")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Add recipe description"),
+// 		check("ingredients")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Add recipe ingredients"),
+// 		check("instructions")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Add recipe instructions"),
+// 		check("image")
+// 			.not()
+// 			.isEmpty()
+// 			.withMessage("Must be a valid image"),
+// 		check("feeds")
+// 			.isNumeric()
+// 			.withMessage("Add feeds amount"),
+// 		// check("url")
+// 		// 	.not()
+// 		// 	.isEmpty()
+// 		// 	.withMessage("Must be a valid URL"),
+// 		check("cost")
+// 			.isDecimal()
+// 			.withMessage("Invalid cost"),
+// 		check("premium")
+// 			.isNumeric()
+// 			.withMessage("Add premium"),
+// 		check("price")
+// 			.isDecimal()
+// 			.withMessage("Invalid price"),
+// 	]
+// 	// addRecipeIngredient
+// );
 
 router.delete("/delete/:recipeId", deleteRecipe);
 

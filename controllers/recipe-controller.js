@@ -60,11 +60,11 @@ const getRecipeById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addRecipe = async (req, res, next) => {
-	console.log("new Body:", req.body);
+	//console.log("new Body:", req.body);
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log("validation error: " + errors.message);
+		//console.log("validation error: " + errors.message);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
@@ -109,10 +109,10 @@ const addRecipe = async (req, res, next) => {
 ////////////////////////////////////////////////
 
 const editRecipe = async (req, res, next) => {
-	console.log("edit Body:", req.body);
+	//console.log("edit Body:", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
+		//console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 	const {
@@ -141,7 +141,7 @@ const editRecipe = async (req, res, next) => {
 		);
 		return next(error);
 	}
-	console.log("Orig recipe:", recipe);
+	//console.log("Orig recipe:", recipe);
 
 	// try {
 	// 	// Upload image to cloudinary
@@ -176,16 +176,16 @@ const editRecipe = async (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////
 const deleteRecipe = async (req, res, next) => {
 	const recipeId = req.params.recipeId;
-	console.log("ID:", recipeId);
+	//console.log("ID:", recipeId);
 
 	try {
 		const deletedItem = await Recipe.findByIdAndDelete(recipeId, {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Recipe to be deleted:", deletedItem);
+			//console.log("Recipe to be deleted:", deletedItem);
 		} else {
-			console.log("No recipe found with that id.");
+			//console.log("No recipe found with that id.");
 			const error = new HttpError("No recipe found with that id.", 404);
 			return next(error);
 		}

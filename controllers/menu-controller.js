@@ -89,7 +89,7 @@ const getMenuList = async (req, res, next) => {
 			// 	// select: ["category", "name", "premium"],
 			// 	model: "Promotion",
 			// })
-
+			.sort({ date: -1 })
 			.exec();
 	} catch (err) {
 		const error = new HttpError(
@@ -133,7 +133,7 @@ const getMenuById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addMenu = async (req, res, next) => {
-		console.log("menu req body** ", req.body);
+	//	console.log("menu req body** ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		throw new HttpError(
@@ -178,7 +178,7 @@ const editMenu = async (req, res, next) => {
 	//	console.log("menu_controller", req.params.menuId, req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
+		//console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
@@ -232,9 +232,9 @@ const deleteMenu = async (req, res, next) => {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Menu to be deleted:", deletedItem);
+			//console.log("Menu to be deleted:", deletedItem);
 		} else {
-			console.log("No menu found with that id.");
+			//console.log("No menu found with that id.");
 			const error = new HttpError("No menu found with that id.", 404);
 			return next(error);
 		}

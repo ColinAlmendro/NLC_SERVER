@@ -54,10 +54,10 @@ const getCustomerById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addCustomer = async (req, res, next) => {
-	console.log("req body** ", req.body);
+//	console.log("req body** ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log("validation error: " + errors.message);
+		//console.log("validation error: " + errors.message);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
@@ -69,7 +69,6 @@ const addCustomer = async (req, res, next) => {
 		email: req.body.email,
 		address1: req.body.address1,
 		area: req.body.area,
-
 		note: req.body.note,
 	});
 
@@ -92,10 +91,10 @@ const addCustomer = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editCustomer = async (req, res, next) => {
-	console.log("Body:", req.params.customerId, req.body);
+	//console.log("Body:", req.params.customerId, req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
+		//console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
@@ -119,7 +118,6 @@ const editCustomer = async (req, res, next) => {
 	customer.email = req.body.email;
 	customer.address1 = req.body.address1;
 	customer.area = req.body.area;
-
 	customer.note = req.body.note;
 
 	try {
@@ -138,21 +136,23 @@ const editCustomer = async (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////
 const deleteCustomer = async (req, res, next) => {
 	const customerId = req.params.customerId;
-	console.log("ID:", customerId);
+	//console.log("ID:", customerId);
+
+	// DELETE linked USER ?
 
 	try {
 		const deletedItem = await Customer.findByIdAndDelete(customerId, {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Customer to be deleted:", deletedItem);
+			//console.log("Customer to be deleted:", deletedItem);
 		} else {
-			console.log("No customer found with that id.");
+			//console.log("No customer found with that id.");
 			const error = new HttpError("No customer found with that id.", 404);
 			return next(error);
 		}
 	} catch (error) {
-		console.error("Error:", error);
+	//console.error("Error:", error);
 		return next(error);
 	}
 

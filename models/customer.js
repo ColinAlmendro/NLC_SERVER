@@ -8,10 +8,10 @@ const customerSchema = new Schema({
 	surname: { type: String, required: true },
 	dob: { type: Date, required: false },
 	cell: { type: String, required: true },
-	email: { type: String, required: false },
+	email: { type: String, required: true, unique: true },
 	address1: { type: String, required: true },
 	area: { type: String, required: true },
-	
+
 	note: { type: String, required: false },
 });
 

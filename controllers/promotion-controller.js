@@ -9,12 +9,14 @@ const Promotion = require("../models/promotion");
 const getPromotionList = async (req, res, next) => {
 	let promotionList;
 	try {
-		promotionList = await Promotion.find().populate({
-			path: "items.recipe",
-			select: ["category", "name", "premium"],
-			model: "Recipe",
-		})
-		.exec();
+		promotionList = await Promotion.find()
+			.populate({
+				path: "items.recipe",
+				select: ["category", "name", "premium"],
+				model: "Recipe",
+			})
+			.sort({ name: 1 })
+			.exec();
 	} catch (err) {
 		const error = new HttpError(
 			"Fetching promotions failed, please try again later.",
@@ -59,10 +61,10 @@ const getPromotionById = async (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////
 const addPromotion = async (req, res, next) => {
-	console.log("req body** ", req.body);
+	//console.log("req body** ", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log("validation error: " + errors.message);
+		//console.log("validation error: " + errors.message);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 
@@ -92,10 +94,10 @@ const addPromotion = async (req, res, next) => {
 };
 ////////////////////////////////////////////////
 const editPromotion = async (req, res, next) => {
-	console.log("Body:",req.params.promotionId, req.body);
+	//console.log("Body:", req.params.promotionId, req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
+		//console.log(errors);
 		throw new HttpError("Invalid input, please check your data", 422);
 	}
 	// const { type, category, name, description, recipe, cost, price } = req.body;
@@ -131,16 +133,16 @@ const editPromotion = async (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////
 const deletePromotion = async (req, res, next) => {
 	const promotionId = req.params.promotionId;
-	console.log("ID:", promotionId);
+	//console.log("ID:", promotionId);
 
 	try {
 		const deletedItem = await Promotion.findByIdAndDelete(promotionId, {
 			new: true,
 		});
 		if (deletedItem) {
-			console.log("Promotion to be deleted:", deletedItem);
+			//console.log("Promotion to be deleted:", deletedItem);
 		} else {
-			console.log("No promotion found with that id.");
+			//console.log("No promotion found with that id.");
 			const error = new HttpError("No promotion found with that id.", 404);
 			return next(error);
 		}

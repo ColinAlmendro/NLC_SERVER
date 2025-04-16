@@ -22,6 +22,7 @@ const priceListSchema = new Schema({
 
 const appSettingSchema = new Schema({
 	app_title: { type: String, required: false },
+	app_subtitle: { type: String, required: false },
 	app_logo: { type: String, required: false },
 	home_logo: { type: String, required: false },
 	home_bg_image: { type: String, required: false },

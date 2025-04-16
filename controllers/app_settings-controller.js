@@ -28,7 +28,7 @@ const getAppSettings = async (req, res, next) => {
 };
 //////////////////////////////////////////////
 const editAppSettings = async (req, res, next) => {
-	console.log("editAppSettings", req.body);
+//	console.log("editAppSettings", req.body);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
@@ -36,6 +36,7 @@ const editAppSettings = async (req, res, next) => {
 	}
 	const {
 		app_title,
+		app_subtitle,
 		app_logo,
 		home_logo,
 		home_bg_image,
@@ -64,7 +65,7 @@ const editAppSettings = async (req, res, next) => {
 	try {
 		appSettings = await AppSettings.findById(appSettingId);
 	} catch (err) {
-		console.log("err1",err)
+	//	console.log("err1",err)
 		const error = new HttpError(
 			"Something went wrong, could not edit app settings.",
 			500
@@ -74,6 +75,7 @@ const editAppSettings = async (req, res, next) => {
 
 
 	appSettings.app_title = app_title;
+	appSettings.app_subtitle = app_subtitle;
 	appSettings.app_logo = app_logo;
 
 	appSettings.home_logo = home_logo;
@@ -103,7 +105,7 @@ const editAppSettings = async (req, res, next) => {
 	try {
 		await appSettings.save();
 	} catch (err) {
-		console.log("errsave", err);
+		//console.log("errsave", err);
 		const error = new HttpError(
 			"Something went wrong, could not update app settings.",
 			500

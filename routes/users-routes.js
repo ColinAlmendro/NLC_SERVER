@@ -21,10 +21,34 @@ router.post(
 			.isEmail(),
 		check("password").isLength({ min: 6 }),
 	],
-	
+
 	usersController.signup
 );
 
 router.post("/login", usersController.login);
+router.post("/editUser", usersController.editUser);
+router.post("/deleteUser", usersController.deleteUser);
+router.post(
+	"/changePwd",
+	[
+		check("old_email")
+			.normalizeEmail()
+			.isEmail(),
+		check("password").isLength({ min: 6 }),
+	],
+	usersController.changePwd
+);
+router.post(
+	"/changeEmail",
+	[
+		check("pwd_email")
+			.normalizeEmail()
+			.isEmail(),
+		check("new_password").isLength({ min: 6 }),
+		check("confirm_password").isLength({ min: 6 }),
+	],
+	usersController.changeEmail
+);
+router.post("/getSingleUser", usersController.getSingleUser);
 
 module.exports = router;
