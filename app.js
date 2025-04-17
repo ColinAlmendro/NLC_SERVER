@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-
+const compression = require("compression");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -21,18 +21,15 @@ const httpError = require("./models/http-error");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
+app.use(compression());
 
-///// -- PROD
-// const url = `mongodb+srv://${process.env.DB_USER}:${encodeURIComponent(
-// 	process.env.DB_PASSWORD
-// )}@cluster0.fbflozx.mongodb.net/${
-// 	process.env.DB_NAME
-// }?retryWrites=true&w=majority`;
 
-const url =
-	"mongodb+srv://NLC_admin:" +
-	encodeURIComponent("CappucinoIsTheBest") +
-	"@cluster0.fbflozx.mongodb.net/NLC?retryWrites=true&w=majority";
+// const url =
+// 	"mongodb+srv://NLC_admin:" +
+// 	encodeURIComponent("CappucinoIsTheBest") +
+// 	"@cluster0.fbflozx.mongodb.net/NLC?retryWrites=true&w=majority";
+
+const url = process.env.MONGO_CONNECT;
 
 app.use(
 	cors({
@@ -57,10 +54,10 @@ app.use("/api/ingredients", ingredientsRoutes);
 app.use("/api/recipes", recipesRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/orders", ordersRoutes);
-// app.use("/api/pricelist", pricelistRoutes);
+
 app.use("/api/menus", menusRoutes);
 app.use("/api/promotions", promotionsRoutes);
-//app.use("/api/areas", areasRoutes);
+
 app.use("/api/appsettings", appSettingsRoutes);
 
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
@@ -104,5 +101,6 @@ mongoose
 		});
 	})
 	.catch((err) => {
-		console.log("mongoose: " + err);
+		console.error("MongoDB connection failed: " + err);
+		process.exit(1);
 	});
