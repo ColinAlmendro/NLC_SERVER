@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const compression = require("compression");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -13,16 +13,12 @@ const recipesRoutes = require("./routes/recipes-routes");
 const promotionsRoutes = require("./routes/promotions-routes");
 const customersRoutes = require("./routes/customers-routes");
 const ordersRoutes = require("./routes/orders-routes");
-// const pricelistRoutes = require("./routes/pricelist-routes");
 const menusRoutes = require("./routes/menus-routes");
-//const areasRoutes = require("./OLD/areas-routes");
 
 const httpError = require("./models/http-error");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
-app.use(compression());
-
 
 // const url =
 // 	"mongodb+srv://NLC_admin:" +
@@ -102,5 +98,4 @@ mongoose
 	})
 	.catch((err) => {
 		console.error("MongoDB connection failed: " + err);
-		process.exit(1);
 	});
